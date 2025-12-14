@@ -1,8 +1,8 @@
 package ru.shokhinsergey.springproject.exceptionhandler;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +14,18 @@ import ru.shokhinsergey.springproject.exceptionhandler.exception.NotValidIdExcep
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice
+
 public class AppExceptionHandler
 //        extends ResponseEntityExceptionHandler
 {
     private static final Logger log = LoggerFactory.getLogger(AppExceptionHandler.class);
 
-    private final static String RESPONSE_NOT_FOUND = "User with specified \"id\" is not found";
-    private final static String RESPONSE_NOT_UNIQUE = "Specified \"email\" has already been registered";
-
-    private final static String RESPONSE_BAD_ID = "Entered \"id\" is not valid";
+    @Value("${springproject.response.exception.not-found}")
+    private String RESPONSE_NOT_FOUND;
+    @Value("${springproject.response.exception.not-unique}")
+    private String RESPONSE_NOT_UNIQUE;
+    @Value("${springproject.response.exception.bad-id}")
+    private String RESPONSE_BAD_ID;
 
     @ExceptionHandler(NotValidIdException.class)
     public ResponseEntity<String> HandlerBadId (NotValidIdException exception) {
@@ -45,6 +48,12 @@ public class AppExceptionHandler
     public ResponseEntity<String> HandlerNotUniqueParameter (DataIntegrityViolationException exception) {
         log.error(RESPONSE_NOT_UNIQUE);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(RESPONSE_NOT_UNIQUE);
+    }
+
+    @ExceptionHandler(Throwable.class)
+    public ResponseEntity<String> HandlerOtherException (Throwable exception) {
+        log.error(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
     }
 
 //    @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -47,17 +47,10 @@ public class AppExceptionHandler
         return ResponseEntity.status(HttpStatus.CONFLICT).body(RESPONSE_NOT_UNIQUE);
     }
 
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity<String> HandlerNotUniqueParameter (MethodArgumentNotValidException exception) {
-//        String message = parseMessage(exception.getMessage());
-//        log.warn(message);
-//        return ResponseEntity.badRequest().body(message);
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<String> HandlerOtherException (Exception exception) {
+//        log.error(exception.getMessage());
+//        return ResponseEntity.status(400).body(RESPONSE_NOT_UNIQUE);
 //    }
-
-//    private String parseMessage(String message) {
-//        int begin = message.lastIndexOf("[");
-//        return  message.substring(begin+1, message.length()-3);
-//    }
-
 
 }

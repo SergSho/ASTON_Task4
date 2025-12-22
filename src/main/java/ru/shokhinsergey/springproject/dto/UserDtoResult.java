@@ -12,15 +12,19 @@ public class UserDtoResult {
         this.created_At = builder.created_At;
     }
 
-    private final Integer id;
+    // для сериализации Json
+    public UserDtoResult() {
+    }
 
-    private final String name;
+    private Integer id;
 
-    private final String email;
+    private String name;
 
-    private final int age;
+    private String email;
 
-    private final LocalDate created_At;
+    private int age;
+
+    private LocalDate created_At;
 
     public static class Builder {
         private Integer id;

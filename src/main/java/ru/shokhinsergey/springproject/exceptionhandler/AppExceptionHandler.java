@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,24 +28,24 @@ public class AppExceptionHandler
     @ExceptionHandler(NotValidIdException.class)
     public ResponseEntity<String> HandlerBadId (NotValidIdException exception) {
         log.error(RESPONSE_BAD_ID);
-        return ResponseEntity.badRequest().body(RESPONSE_BAD_ID);
+        return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN).body(RESPONSE_BAD_ID);
     }
 
     @ExceptionHandler(NotValidArgumentException.class)
     public ResponseEntity<String> HandlerBadArgumentMethod (NotValidArgumentException exception) {
         log.error(exception.getMessage());
-        return ResponseEntity.badRequest().body(exception.getMessage());
+        return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN).body(exception.getMessage());
     }
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> HandlerNoSuchElement (NoSuchElementException exception) {
         log.error(RESPONSE_NOT_FOUND);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(RESPONSE_NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.TEXT_PLAIN).body(RESPONSE_NOT_FOUND);
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> HandlerNotUniqueParameter (DataIntegrityViolationException exception) {
         log.error(RESPONSE_NOT_UNIQUE);
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(RESPONSE_NOT_UNIQUE);
+        return ResponseEntity.status(HttpStatus.CONFLICT).contentType(MediaType.TEXT_PLAIN).body(RESPONSE_NOT_UNIQUE);
     }
 
 //    @ExceptionHandler(Exception.class)

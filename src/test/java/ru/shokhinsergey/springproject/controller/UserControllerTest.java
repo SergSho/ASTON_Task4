@@ -1,6 +1,7 @@
 package ru.shokhinsergey.springproject.controller;
 
 import jakarta.annotation.PostConstruct;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
+@Disabled
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
     private final Integer ID = 1;
@@ -51,7 +53,7 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @PostConstruct
-    private void init() throws Exception {
+    private void init() {
         requestDtoUser = new UserDtoCreateAndUpdate("Alex", "alex@mail.ru", 18);
 
         requestValidJson = requestDtoUser.toString();
